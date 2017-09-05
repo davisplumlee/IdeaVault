@@ -1,0 +1,7 @@
+# Build artifacts
+bin
+obj
+node_modules
+
+# Editor artifacts
+.vscode
