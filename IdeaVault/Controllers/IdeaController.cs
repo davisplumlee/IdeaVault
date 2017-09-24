@@ -13,45 +13,24 @@ namespace IdeaVault.Controllers
     public class IdeaController : Controller
     {
 
-        [HttpGet]
-        public Idea GetIdea()
+        private readonly IQueryEngine _query;
+
+        public IdeaController(IQueryEngine QueryEngine)
         {
-            var data = SampleData();
-            
-            return data as Idea;
+            _query = QueryEngine;
+        }
+
+        [HttpGet]
+        public IEnumerable<Idea> GetIdea()
+        {
+            return _query.GetItems<Idea>().Result;
         }
 
         [HttpPost("add")]
-        public IEnumerable<Idea> AddIdea([FromBody] Idea idea){
-
-            // Temporary methods
-            var temp = new Idea();
-            temp.Id = idea.Id;
-            return (dynamic) temp;
-        }
-
-        private Idea SampleData()
+        public Idea AddIdea([FromBody] Idea idea)
         {
-            var data = new Idea();
-            data.Id = "12345";
-            data.Date = new DateTime();
-            data.Comments = new List<Comment>();
-            data.Content = "Test Idea Content";
-
-            var comment1 = new Comment();
-            comment1.Content = "Test Comment 1";
-            comment1.Date = new DateTime();
-            comment1.Id = "11111";
-
-            var comment2 = new Comment();
-            comment2.Content = "Test Comment 2";
-            comment2.Date = new DateTime();
-            comment2.Id = "22222";
-
-            data.Comments.Add(comment1);
-            data.Comments.Add(comment2);
-
-            return data;
+            return _query.CreateItemAsync(idea).Result;
         }
+
     }
 }

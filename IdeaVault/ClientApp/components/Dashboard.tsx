@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { Button } from 'react-bootstrap';
 
 interface IDashboardState {
-    idea: IIdea;
+    ideas: Array<IIdea>;
+    editingContent: string;
 }
 
 interface IIdea {
     id: string;
     content: string;
-    comments: Array<IComment>;
+    comments: any;
     date: Date;
 }
 
@@ -22,44 +24,90 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
     constructor() {
         super();
         this.state = {
-            idea: undefined
+            ideas: undefined,
+            editingContent: ''
         }
     }
 
-    public render() {
+    componentWillMount(){
+        this.fetchData();
+    }
 
-        if (!this.state.idea) { 
-            return <div> 
-                Loading... 
-                <button onClick={ () => { this.fetchData() } }>Fetch</button>
-            </div>
-
-        };
-
-        return <div>
-
-            <button onClick={ () => { this.fetchData() } }>Fetch</button>
-    
-            <h3> { this.state.idea.content }</h3>
-
-            {
-                this.state.idea.comments.map(c => {
-                    return <p key={c.id}> {c.content} </p>
-                })
-            }
-
-        </div>;
+    postData(){
+        fetch('/api/idea/add', {
+            credentials: 'include',
+            headers: { "Content-Type": "application/json" },
+            method: 'POST',
+            body: JSON.stringify({
+                content: this.state.editingContent,
+                date: new Date(),
+                comments: []
+            })
+        }).then(data => {
+            this.setState({editingContent: ''});
+            this.fetchData();
+        })
+        
     }
 
     fetchData() {
         fetch('/api/idea', {
             credentials: 'include'
         })
-        .then(response => response.json() as Promise<IIdea>)
+        .then(response => response.json() as Promise<IIdea[]>)
         .then(data => {
-            this.setState({ idea: data });
+            console.log(data)
+            this.setState({ ideas: data });
         });
     }
 
+    handleChange(e){
+        this.setState({ editingContent: e.target.value})
+    }
+
+
+
+    public render() {
+
+        if (!this.state.ideas) { 
+            return <div> 
+                <h2>Loading...</h2> 
+
+                <form>
+                    <input type="text" placeholder="New Idea" value={this.state.editingContent} onChange={this.handleChange.bind(this)} />
+                    <Button bsStyle="primary" onClick={this.postData.bind(this)}>Add Idea</Button>
+                </form>
+            </div>
+
+        };
+
+        return <div>
+
+            <form>
+                <input type="text" placeholder="New Idea" value={this.state.editingContent} onChange={this.handleChange.bind(this)} />
+                <Button bsStyle="primary" onClick={this.postData.bind(this)}>Add Idea</Button>
+            </form>
+
+            <br/>
     
+            {   
+                this.state.ideas.map(idea => {
+                    return <div key={idea.id}>
+                        <h3>{ idea.content }</h3>
+                        {
+                            (idea.comments.length != 0) ? (
+                                idea.comments.map(c => {
+                                    return <p key={c.id}> {c.content} </p>
+                                })
+                            ) : (
+                                <div />
+                            )
+                        }
+                    </div>
+                })
+            }
+
+        </div>;
+    }
+
 }

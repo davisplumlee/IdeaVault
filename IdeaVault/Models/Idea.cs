@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace IdeaVault.Models
 {
-    public class Idea 
+    public class Idea : IDbModel
     {
         [JsonIgnore]
         public string Collection => @"ideas";

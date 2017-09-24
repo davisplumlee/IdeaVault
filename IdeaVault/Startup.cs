@@ -17,8 +17,8 @@ namespace IdeaVault
         {
             var builder = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -29,7 +29,7 @@ namespace IdeaVault
         {
             services.AddMvc();
             var dbConfig = new DatabaseConfig();
-            var opts = Configuration.GetSection("Database");
+            var opts = Configuration.GetSection("DbSettings");
             opts.Bind(dbConfig);
 
 

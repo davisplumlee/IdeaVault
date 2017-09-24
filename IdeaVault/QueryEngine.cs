@@ -19,7 +19,6 @@ namespace IdeaVault
             * Endpoint - URI to link to database
             * AuthKey - Private key for db access
             * DatabaseId - Name/Id of database
-            * Collection - Name/Id of collection
         */
         private DatabaseConfig _config;
         // private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"];
@@ -87,9 +86,10 @@ namespace IdeaVault
             return (T) (dynamic) temp.Resource;
         }
 
-        public Task DeleteItemAsync<T>(T item) where T : IDbModel
+        public async Task DeleteItemAsync<T>(T item) where T : IDbModel
         {
-            throw new NotImplementedException();
+            await CreateCollectionIfNotExists(item.Collection);
+            await _client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(_config.DatabaseId, item.Collection, item.Id));
         }
 
         public async Task<T> GetItem<T>(string id) where T : IDbModel, new()
@@ -143,9 +143,10 @@ namespace IdeaVault
             return results;
         }
 
-        public Task UpdateItemAsync<T>(T item) where T : IDbModel
+        public async Task UpdateItemAsync<T>(T item) where T : IDbModel
         {
-            throw new NotImplementedException();
+            await CreateCollectionIfNotExists(item.Collection);
+            await _client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(_config.DatabaseId, item.Collection, item.Id), item);
         }
     }
 }
