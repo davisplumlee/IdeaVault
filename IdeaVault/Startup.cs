@@ -7,14 +7,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using IdeaVault.Models;
 
 namespace IdeaVault
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -23,6 +28,18 @@ namespace IdeaVault
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var dbConfig = new DatabaseConfig();
+            var opts = Configuration.GetSection("Database");
+            opts.Bind(dbConfig);
+
+
+            // services.AddOptions();
+            // services.Configure<DatabaseConfig>(Configuration.GetSection("DbSettings"));
+            // var dbConfig = new DatabaseConfig();
+            // var opts = Configuration.GetSection("Database");
+            // opts.Bind(dbConfig);
+            var queryEngine = new QueryEngine(dbConfig);
+            services.AddSingleton<IQueryEngine>(queryEngine);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
