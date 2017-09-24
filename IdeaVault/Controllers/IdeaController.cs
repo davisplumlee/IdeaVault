@@ -21,9 +21,14 @@ namespace IdeaVault.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Idea> GetIdea()
+        public IEnumerable<Idea> GetIdeas()
         {
             return _query.GetItems<Idea>().Result;
+        }
+
+        [HttpGet("{id}")]
+        public Idea GetIdea(string id){
+            return _query.GetItem<Idea>(id).Result;
         }
 
         [HttpPost("add")]
@@ -32,5 +37,18 @@ namespace IdeaVault.Controllers
             return _query.CreateItemAsync(idea).Result;
         }
 
+        [HttpDelete("{id}")]
+        public void DeleteIdea(string id)
+        {
+            Idea temp = new Idea();
+            temp.Id = id;
+            _query.DeleteItemAsync<Idea>(temp);
+        }
+
+        [HttpPut("update")]
+        public void UpdateIdea([FromBody] Idea idea)
+        {
+            _query.UpdateItemAsync<Idea>(idea);
+        }
     }
 }
