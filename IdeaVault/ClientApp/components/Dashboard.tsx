@@ -50,7 +50,7 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
         
     }
 
-    fetchData() {
+    fetchData(){
         fetch('/api/idea', {
             credentials: 'include'
         })
@@ -59,6 +59,15 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
             console.log(data)
             this.setState({ ideas: data });
         });
+    }
+
+    deleteIdea(id){
+        fetch('/api/idea/' + id, {
+            credentials: 'include',
+            method: 'DELETE',
+        }).then(data => {
+            this.fetchData();
+        })
     }
 
     handleChange(e){
@@ -93,7 +102,7 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
             {   
                 this.state.ideas.map(idea => {
                     return <div key={idea.id}>
-                        <h3>{ idea.content }</h3>
+                        <h3>{ idea.content } <a onClick={this.deleteIdea.bind(this, idea.id)}>Delete</a></h3>
                         {
                             (idea.comments.length != 0) ? (
                                 idea.comments.map(c => {
