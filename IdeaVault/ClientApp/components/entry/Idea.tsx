@@ -63,7 +63,13 @@ export class Idea extends React.Component<RouteComponentProps<{}>, IIdeaState> {
         }
         return <div>
 
-            <TitleCell type="title" changeFunc={this.handleChange.bind(this)}/>
+            <h2 style={ {padding: '0.5em 0.0em'} }>New Idea</h2>
+
+            <Row>
+                <Col sm={4}>
+                    <TitleCell type="title" changeFunc={this.handleChange.bind(this)}/>
+                </Col>
+            </Row>
             <br/>
             <ContentCell type="content" changeFunc={this.handleChange.bind(this)}/>
 

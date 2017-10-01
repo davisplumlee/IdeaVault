@@ -5,7 +5,8 @@ import { FormControl, FormGroup } from 'react-bootstrap';
 
 interface ITitleCellProps {
     changeFunc(value: any, type: string): any;
-    type: string
+    type: string;
+    placeholder?: string;
 }
 
 export class TitleCell extends React.Component<ITitleCellProps, {}> {
@@ -25,7 +26,7 @@ export class TitleCell extends React.Component<ITitleCellProps, {}> {
             <FormGroup>
                 <FormControl
                     type="text"
-                    placeholder="New Idea"
+                    placeholder={this.props.placeholder || 'Title'}
                     onChange={this.updateValue.bind(this)}
                 />
                 <FormControl.Feedback />

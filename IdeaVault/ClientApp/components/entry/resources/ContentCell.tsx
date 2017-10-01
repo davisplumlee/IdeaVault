@@ -5,7 +5,8 @@ import { FormControl, FormGroup } from 'react-bootstrap';
 
 interface IContentCellProps {
     changeFunc(value: any, type: string): any;
-    type: string
+    type: string;
+    placeholder?: string;
 }
 
 export class ContentCell extends React.Component<IContentCellProps, {}> {
@@ -24,9 +25,10 @@ export class ContentCell extends React.Component<IContentCellProps, {}> {
 
             <FormGroup>
                 <FormControl
-                    placeholder="Description, Overview, etc."
+                    placeholder={this.props.placeholder || "Description, Overview, etc."}
                     onChange={this.updateValue.bind(this)}
-                    elementType="textarea"
+                    componentClass="textarea"
+                    rows='6'
                 />
                 <FormControl.Feedback />
             </FormGroup>
