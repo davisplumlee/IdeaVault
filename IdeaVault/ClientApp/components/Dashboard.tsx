@@ -1,20 +1,23 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { ButtonToolbar, Button, Row, Col } from 'react-bootstrap';
+import { Idea } from './Idea'
 
 interface IDashboardState {
     ideas: Array<IIdea>;
     editingContent: string;
 }
 
-interface IIdea {
+export interface IIdea {
     id: string;
     content: string;
     comments: any;
     date: Date;
+    title: string;
 }
 
-interface IComment {
+export interface IComment {
     content: string;
     id: string;
     date: Date;
@@ -61,38 +64,56 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
         });
     }
 
-    deleteIdea(id){
-        fetch('/api/idea/' + id, {
-            credentials: 'include',
-            method: 'DELETE',
-        }).then(data => {
-            this.fetchData();
-        })
-    }
+    // deleteIdea(id){
+    //     fetch('/api/idea/' + id, {
+    //         credentials: 'include',
+    //         method: 'DELETE',
+    //     }).then(data => {
+    //         this.fetchData();
+    //     })
+    // }
 
     handleChange(e){
         this.setState({ editingContent: e.target.value})
     }
 
-
-
     public render() {
 
+        let plus = <i className="fa fa-plus" aria-hidden={true} />;
+
         if (!this.state.ideas) { 
-            return <div> 
-                <h2>Loading...</h2> 
-
-                <form>
-                    <input type="text" placeholder="New Idea" value={this.state.editingContent} onChange={this.handleChange.bind(this)} />
-                    <Button bsStyle="primary" onClick={this.postData.bind(this)}>Add Idea</Button>
-                </form>
-            </div>
-
+            return <h2>Loading...</h2>
         };
 
         return <div>
 
-            <form>
+            {
+                (this.state.ideas.length == 0) ? 
+                    <h2>No Ideas Yet</h2>
+                : 
+                    <h2>Ideas</h2>
+            }
+
+            <ButtonToolbar>
+                <Link to={"/"}>
+                    <Button bsStyle="default">
+                        {plus} {" "} Idea
+                    </Button>
+                </Link>
+            </ButtonToolbar>
+            <br/>
+            <Row>
+                <Col sm={2}><strong>Title</strong></Col>
+                <Col sm={10}><strong>Description</strong></Col>
+            </Row>
+
+            {   
+                this.state.ideas.map(idea => {
+                    return <Idea key={idea.id} updateFunc={this.fetchData.bind(this)} idea={idea}/>
+                })
+            }
+
+            {/* <form>
                 <input type="text" placeholder="New Idea" value={this.state.editingContent} onChange={this.handleChange.bind(this)} />
                 <Button bsStyle="primary" onClick={this.postData.bind(this)}>Add Idea</Button>
             </form>
@@ -114,7 +135,7 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
                         }
                     </div>
                 })
-            }
+            } */}
 
         </div>;
     }
