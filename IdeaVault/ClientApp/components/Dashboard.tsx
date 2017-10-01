@@ -95,7 +95,7 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
             }
 
             <ButtonToolbar>
-                <Link to={"/"}>
+                <Link to={"/add"}>
                     <Button bsStyle="default">
                         {plus} {" "} Idea
                     </Button>

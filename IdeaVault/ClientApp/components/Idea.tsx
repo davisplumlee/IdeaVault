@@ -53,7 +53,6 @@ export class Idea extends React.Component<IIdeaProps, IIdeaState> {
             <Modal 
                 show={this.state.showDelete} 
                 onHide={this.cancelDelete.bind(this)}>
-                <Modal.Header closeButton></Modal.Header>
                 <Modal.Body>
                     <h2>Are you sure?</h2>
                 </Modal.Body>
