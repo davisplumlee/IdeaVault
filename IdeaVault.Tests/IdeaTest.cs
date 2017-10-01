@@ -44,6 +44,7 @@ namespace IdeaVault.Tests
         private static Idea SampleIdea = new Idea
         {
             Id = "123abc",
+            Title = "Title",
             Content = "Sample Content",
             Date = new DateTime(),
             Comments = new List<Comment>()
