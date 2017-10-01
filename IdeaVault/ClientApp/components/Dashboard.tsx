@@ -12,7 +12,7 @@ interface IDashboardState {
 export interface IIdea {
     id: string;
     content: string;
-    comments: any;
+    comments: Array<IComment>;
     date: Date;
     title: string;
 }
@@ -91,7 +91,7 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
                 (this.state.ideas.length == 0) ? 
                     <h2>No Ideas Yet</h2>
                 : 
-                    <h2>Ideas</h2>
+                    <h2 style={ {padding: '0.5em 0.0em'} }>Ideas</h2>
             }
 
             <ButtonToolbar>
@@ -103,8 +103,11 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
             </ButtonToolbar>
             <br/>
             <Row>
-                <Col sm={2}><strong>Title</strong></Col>
-                <Col sm={10}><strong>Description</strong></Col>
+                <div className="tableHeader">
+                    <Col sm={2}><strong>Title</strong></Col>
+                    <Col sm={8}><strong>Description</strong></Col>
+                    <Col sm={2}><strong>Comments</strong></Col>
+                </div>
             </Row>
 
             {   

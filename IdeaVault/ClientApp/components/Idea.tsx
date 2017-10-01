@@ -38,16 +38,21 @@ export class Idea extends React.Component<IIdeaProps, IIdeaState> {
         })
     }
 
+    openDetail(){
+        // TODO: CREATE AND LINK DETAIL VIEW
+    }
+
     public render() {
 
         let deleteIcon = <a onClick={this.openDelete.bind(this)}><i className="fa fa-trash-o pull-right" aria-hidden={true} /></a>;
-
+        let commentIcon = <span style={{padding: '0.3em'}}><i className="fa fa-comments" aria-hidden={true} /></span>;
         return <div>
             <hr/>
-            {moment(this.props.idea.date).format("MM/DD/YYYY")}{deleteIcon}
+            <em>{moment(this.props.idea.date).format("MM/DD/YYYY")}</em>{deleteIcon}
             <Row>
-                <Col sm={2}>{this.props.idea.title}</Col>
-                <Col sm={10}>{this.props.idea.content}</Col>   
+                <Col sm={2}><a style={{cursor: 'pointer'}} onClick={this.openDetail.bind(this)}><strong>{this.props.idea.title}</strong></a></Col>
+                <Col sm={9}>{this.props.idea.content}</Col>
+                <Col sm={1}><a style={{cursor: 'pointer'}} onClick={this.openDetail.bind(this)}>{this.props.idea.comments.length}{commentIcon}</a></Col>
             </Row>
 
             <Modal 
