@@ -18,6 +18,9 @@ namespace IdeaVault.Models
         [JsonProperty(propertyName:"content")]
         public string Content { get; set; }
 
+        [JsonProperty(propertyName:"title")]
+        public string Title { get; set; }
+
         [JsonProperty(propertyName:"comments")]
         public List<Comment> Comments { get; set; }
     }
