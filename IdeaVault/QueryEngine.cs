@@ -118,7 +118,7 @@ namespace IdeaVault
         {
             var type = new T();
             await CreateCollectionIfNotExists(type.Collection);
-            var items = await _client.ReadDocumentFeedAsync(UriFactory.CreateDocumentCollectionUri(_config.DatabaseId, type.Collection), new FeedOptions { MaxItemCount = -1 });
+            var items = await _client.ReadDocumentFeedAsync(UriFactory.CreateDocumentCollectionUri(_config.DatabaseId, type.Collection), new FeedOptions { MaxItemCount = 200 });
 
             return items.Select(item => (T) item);
         }
