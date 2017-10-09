@@ -31,10 +31,10 @@ export class Idea extends React.Component<RouteComponentProps<{}>, IIdeaState> {
         }
     }
 
-
+    // CHANGED FOR LOCAL DEVEOPMENT *****************
     postData(){
         this.setState({disable: true})
-        fetch('/api/idea/add', {
+        fetch('/api/SampleData/add', {
             credentials: 'include',
             headers: { "Content-Type": "application/json" },
             method: 'POST',

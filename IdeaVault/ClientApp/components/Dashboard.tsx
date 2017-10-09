@@ -36,8 +36,9 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
         this.fetchData();
     }
 
+    // CHANGED FOR LOCAL DEVEOPMENT *****************
     postData(){
-        fetch('/api/idea/add', {
+        fetch('api/SampleData/add', {
             credentials: 'include',
             headers: { "Content-Type": "application/json" },
             method: 'POST',
@@ -53,8 +54,9 @@ export class Dashboard extends React.Component<RouteComponentProps<{}>, IDashboa
         
     }
 
+    // CHANGED FOR LOCAL DEVEOPMENT *****************
     fetchData(){
-        fetch('/api/idea', {
+        fetch('api/SampleData', {
             credentials: 'include'
         })
         .then(response => response.json() as Promise<IIdea[]>)
