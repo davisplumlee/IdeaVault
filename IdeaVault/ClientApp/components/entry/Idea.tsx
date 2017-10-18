@@ -75,30 +75,6 @@ export class Idea extends React.Component<RouteComponentProps<{}>, IIdeaState> {
 
             <Button disabled={this.state.editing.title == '' || this.state.editing.content == '' || disabled} bsStyle="primary" onClick={this.postData.bind(this)}>Add Idea</Button>
 
-            {/* <form>
-                <input type="text" placeholder="New Idea" value={this.state.editingContent} onChange={this.handleChange.bind(this)} />
-                <Button bsStyle="primary" onClick={this.postData.bind(this)}>Add Idea</Button>
-            </form>
-
-            <br/>
-    
-            {   
-                this.state.ideas.map(idea => {
-                    return <div key={idea.id}>
-                        <h3>{ idea.content } <a onClick={this.deleteIdea.bind(this, idea.id)}>Delete</a></h3>
-                        {
-                            (idea.comments.length != 0) ? (
-                                idea.comments.map(c => {
-                                    return <p key={c.id}> {c.content} </p>
-                                })
-                            ) : (
-                                <div />
-                            )
-                        }
-                    </div>
-                })
-            } */}
-
         </div>;
     }
 
