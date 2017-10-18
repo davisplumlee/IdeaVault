@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Button, Row, Col, Modal } from 'react-bootstrap';
-import { IIdea, IComment } from './Dashboard'
+import { IIdea, IComment } from './Dashboard';
+import { Link } from 'react-router-dom';
 import * as moment from 'moment';
 
 interface IIdeaState {
@@ -38,9 +39,6 @@ export class Idea extends React.Component<IIdeaProps, IIdeaState> {
         })
     }
 
-    openDetail(){
-        // TODO: CREATE AND LINK DETAIL VIEW
-    }
 
     public render() {
 
@@ -50,9 +48,9 @@ export class Idea extends React.Component<IIdeaProps, IIdeaState> {
             <hr/>
             <em>{moment(this.props.idea.date).format("MM/DD/YYYY")}</em>{deleteIcon}
             <Row>
-                <Col sm={2}><a style={{cursor: 'pointer'}} onClick={this.openDetail.bind(this)}><strong>{this.props.idea.title}</strong></a></Col>
+                <Col sm={2}><Link to={"/idea?id=" + this.props.idea.id}><a style={{cursor: 'pointer'}}><strong>{this.props.idea.title}</strong></a></Link></Col>
                 <Col sm={9}>{this.props.idea.content}</Col>
-                <Col sm={1}><a style={{cursor: 'pointer'}} onClick={this.openDetail.bind(this)}>{this.props.idea.comments.length}{commentIcon}</a></Col>
+                <Col sm={1}><Link to={"/idea?id=" + this.props.idea.id}><a style={{cursor: 'pointer'}}>{this.props.idea.comments.length}{commentIcon}</a></Link></Col>
             </Row>
 
             <Modal 
