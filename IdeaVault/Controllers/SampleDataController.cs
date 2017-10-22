@@ -21,7 +21,13 @@ namespace IdeaVault.Controllers
 
         [HttpGet("{id}")]
         public Idea GetIdea(string id){
-            return SampleData.Where(item => item.Id == id) as Idea;
+            return new Idea{
+                Id = id,
+                Date = new DateTime(2017, 10, 2, 5, 24, 6),
+                Content = "A simple web app that allows people to select their form of transport into the office and routes them through a random coffee and random donut shop to get there. Could use user's location from browser to determine starting point and give both visual and step by step instructions. Should work for walking, biking, and public transit.",
+                Title = "Breakfast Route App",
+                Comments = new List<Comment>()
+            };
         }
 
         [HttpPost("add")]
