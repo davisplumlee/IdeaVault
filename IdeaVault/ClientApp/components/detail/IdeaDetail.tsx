@@ -35,19 +35,22 @@ export class IdeaDetail extends React.Component<IIdeaDetailProps, IIdeaDetailSta
 
 
     public render() {
-        var idea = this.state.idea
+        if(!this.state.idea){
+            return <h3>Loading...</h3>
+        }
         return <div>
 
-            <h1>{idea.title}</h1>
+            <h1>{this.state.idea.title}</h1>
             <br/>
 
-            <h4>{idea.content}</h4>
+            <h4>{this.state.idea.content}</h4>
 
             <hr/>
             <h3>Comments</h3>
-            {idea.comments.length == 0 ? <h5>No comments yet</h5>
+            {
+                this.state.idea.comments.length == 0 ? <h5>No comments yet</h5>
             :    
-                idea.comments.map(comment => {
+                this.state.idea.comments.map(comment => {
                     return <Comment data={comment} />
                 })
             }
