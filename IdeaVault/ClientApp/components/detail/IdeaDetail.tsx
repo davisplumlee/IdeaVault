@@ -87,7 +87,7 @@ export class IdeaDetail extends React.Component<IIdeaDetailProps, IIdeaDetailSta
                 this.state.idea.comments.length == 0 ? <p><strong>No comments yet</strong></p>
             :    
                 this.state.idea.comments.map(comment => {
-                    return <Comment data={comment} />
+                    return <Comment key={comment.id} data={comment} />
                 })
             }
 
