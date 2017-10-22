@@ -41,6 +41,24 @@ namespace IdeaVault.Tests
             Assert.Same(SampleIdeas, result);
         }
 
+        [Fact]
+        public void DeleteIdea()
+        {
+            var ideaController = new IdeaController(_query);
+            ideaController.DeleteIdea("123abc");
+            _query.ReceivedWithAnyArgs(1).DeleteItemAsync<Idea>(null);
+        }
+
+        [Fact]
+        public void UpdateIdea()
+        {
+            var ideaController = new IdeaController(_query);
+            ideaController.UpdateIdea(SampleIdea);
+            _query.ReceivedWithAnyArgs(1).UpdateItemAsync<Idea>(null);
+        }
+
+
+
         private static Idea SampleIdea = new Idea
         {
             Id = "123abc",
