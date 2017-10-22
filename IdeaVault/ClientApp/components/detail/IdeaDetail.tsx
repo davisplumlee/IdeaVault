@@ -41,14 +41,15 @@ export class IdeaDetail extends React.Component<IIdeaDetailProps, IIdeaDetailSta
         return <div>
 
             <h1>{this.state.idea.title}</h1>
+
             <br/>
 
-            <h4>{this.state.idea.content}</h4>
+            <p>{this.state.idea.content}</p>
 
             <hr/>
             <h3>Comments</h3>
             {
-                this.state.idea.comments.length == 0 ? <h5>No comments yet</h5>
+                this.state.idea.comments.length == 0 ? <p><strong>No comments yet</strong></p>
             :    
                 this.state.idea.comments.map(comment => {
                     return <Comment data={comment} />
