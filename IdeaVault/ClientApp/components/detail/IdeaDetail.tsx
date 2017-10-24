@@ -61,9 +61,15 @@ export class IdeaDetail extends React.Component<IIdeaDetailProps, IIdeaDetailSta
         console.log(idea)
         this.setState({show: false, editing: '', idea: idea})
 
-        //
-        // TODO: ADD API UPDATE CALL
-        //
+        // CHANGED FOR LOCAL DEVELOPMENT ***************
+        // fetch('/api/SampleData/update', {
+        //     credentials: 'include',
+        //     headers: { "Content-Type": "application/json" },
+        //     method: 'PUT',
+        //     body: JSON.stringify({
+        //         idea: this.state.idea
+        //     })
+        // });
 
     }
 
