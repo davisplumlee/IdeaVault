@@ -107,6 +107,7 @@ export class IdeaDetail extends React.Component<IIdeaDetailProps, IIdeaDetailSta
                             onChange={this.updateValue.bind(this)}
                             componentClass="textarea"
                             rows='3'
+                            autoFocus={true}
                         />
                         <FormControl.Feedback />
                     </FormGroup>
