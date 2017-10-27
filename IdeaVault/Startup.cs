@@ -31,9 +31,10 @@ namespace IdeaVault
         {
             services.AddMvc();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            // TODO Add user/identity models
+            // services.AddIdentity<ApplicationUser, IdentityRole>()
+            //     .AddEntityFrameworkStores<ApplicationDbContext>()
+            //     .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>
             {
