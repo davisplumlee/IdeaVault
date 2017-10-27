@@ -28,18 +28,18 @@ namespace IdeaVault
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            var dbConfig = new DatabaseConfig();
-            var opts = Configuration.GetSection("DbSettings");
-            opts.Bind(dbConfig);
 
-
+            // DB SETTINGS ***********************
+            // var dbConfig = new DatabaseConfig();
+            // var opts = Configuration.GetSection("DbSettings");
+            // opts.Bind(dbConfig);
             // services.AddOptions();
             // services.Configure<DatabaseConfig>(Configuration.GetSection("DbSettings"));
             // var dbConfig = new DatabaseConfig();
             // var opts = Configuration.GetSection("Database");
             // opts.Bind(dbConfig);
-            var queryEngine = new QueryEngine(dbConfig);
-            services.AddSingleton<IQueryEngine>(queryEngine);
+            // var queryEngine = new QueryEngine(dbConfig);
+            // services.AddSingleton<IQueryEngine>(queryEngine);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
